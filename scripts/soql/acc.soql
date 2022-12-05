@@ -1,0 +1,18 @@
+//latest created 3 accounts.
+
+select id, name from Account
+
+select id, name, createdDate from account order by createddate desc limit 3
+
+select id, name, phone from account where phone != ''
+
+SELECT Name, Id, phone,  accountnumber,   active__c,  shippingcity from account where phone != null and accountnumber != null 
+
+SELECT Name, Id, phone,  accountnumber,   active__c,  shippingcity, website from account where (phone != null or website != null) and accountnumber != null 
+
+
+select id, name, subject__c, status__c, priority__c from salesforce_ticket__c 
+where status__c != '' and priority__c in ('high', 'low','')
+
+select id, name, subject__c, status__c, priority__c from salesforce_ticket__c 
+where status__c != '' and (priority__c = 'high' or priority__c = 'low' or priority__c = '')
