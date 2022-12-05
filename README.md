@@ -21,3 +21,4 @@ The `sfdx-project.json` file contains useful configuration information for your 
 
 ## Random update by my team mate
 - all good.
+- we will have to use `git pull` command to pull these changes to VS Code
