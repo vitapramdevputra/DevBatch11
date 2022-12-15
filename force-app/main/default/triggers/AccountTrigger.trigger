@@ -1,11 +1,23 @@
 trigger AccountTrigger on Account (before insert, before update, after insert, after update) {
     
+    if (Trigger.isBefore) {
+        AccountTriggerHandler.updateDescription(Trigger.New, Trigger.Old, Trigger.NewMap, Trigger.OldMap);
+    }
+
+
+
+    /*
     if (trigger.isAfter && trigger.isUpdate) {
         system.debug('after update trigger');
 
         map<id, account> accTriggerOldMap = trigger.oldMap; //map of old records, id is key
         map<id, account> accTriggerNewMap = trigger.newMap; //map of new records, id is key
+        
         set<id> accountIds = accTriggerNewMap.keySet(); //all the IDS.
+        set<id> accountIdsOld = accTriggerOldMap.keySet();//all ids of oldMap
+        system.debug('accountids -> ' + accountIds);
+        system.debug('accountIdsOld -> ' + accountIdsOld);
+ 
         integer countWebsite = 0;
 
         for (Id eachId : accountIds) {
@@ -25,7 +37,7 @@ trigger AccountTrigger on Account (before insert, before update, after insert, a
            
         }
         system.debug('website updated for # of accounts => ' + countwebsite);
-    }
+    }*/
 
     
     /*List<account> accTriggerOld = trigger.old; //list of old records
