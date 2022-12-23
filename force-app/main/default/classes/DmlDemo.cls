@@ -56,6 +56,20 @@ public class DmlDemo {
         system.debug('contact record: ' + cnt);
     }
 
+    public static void dmlInsertDemo_55() {
+        Salesforce_Project__c sp = [select id, name from Salesforce_Project__c order by CreatedDate desc limit 1];
+
+        //we want to create related ticket
+        Salesforce_Ticket__c stNew = new Salesforce_Ticket__c();
+        stNew.Subject__c = 'Learn Apex dmls';
+        stNew.Priority__c = 'High';
+        stNew.Status__c = 'New';
+        stNew.Requested_by_date__c = date.newInstance(2022, 12, 5);
+        stNew.Salesforce_Project__c = sp.Id;
+        insert stNew;
+        system.debug('st is ' + stNew);
+    }
+
     public static void dmlInsertDemo_5() {
         Salesforce_Project__c sp = [select id, name from Salesforce_Project__c order by CreatedDate desc limit 1];
 
