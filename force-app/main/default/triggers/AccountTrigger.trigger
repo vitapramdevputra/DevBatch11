@@ -1,7 +1,9 @@
 trigger AccountTrigger on Account (before insert, before update, after insert, after update) {
     
     if (Trigger.isBefore) {
+        system.debug('call updateDescription NOW.');
         AccountTriggerHandler.updateDescription(Trigger.New, Trigger.Old, Trigger.NewMap, Trigger.OldMap);
+        system.debug('Called updateDescription DONE already.');
     }
     if (Trigger.isAfter && Trigger.isUpdate) {
         //HERE we call handler method to update all contacts VIP field
