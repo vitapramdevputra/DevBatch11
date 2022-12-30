@@ -7,6 +7,7 @@ trigger SalesforceProjectTrigger on Salesforce_Project__c (before insert, after 
          system.debug('calling future method NOW.');
          Map<id, Salesforce_Project__c> spNewMap = trigger.newMap;
          SalesforceProjectTriggerHandler.spUpdateDescription(spNewMap.keySet());
+         //we cannot know if future method ran successfully or not, because we don't have job id.
          system.debug('called future method. DONE.');
 
     }
