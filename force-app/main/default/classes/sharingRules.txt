@@ -1,0 +1,22 @@
+With Sharing --> Class A [trigger, vf page, lwc --> with sharing.]
+    --> call method of class C.
+    --> call method of class B.
+
+
+
+
+Inherited sharing --> Class B [with sharing when called from Class A]
+                            [trigger, vf page, lwc --> with sharing.]
+                            [without sharing when called from Class C]
+
+
+
+Without Sharing --> Class C [without sharing rules.]
+                            [trigger, vf page, lwc --> without sharing.]
+    -> call method of class B
+
+
+
+omitted sharing --> class D  [with sharing when called from Class A]
+                            [trigger, vf page, lwc --> without sharing.]
+                            [without sharing when called from Class C]

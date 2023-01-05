@@ -1,4 +1,4 @@
-public class AccountQueueableExample implements Queueable{
+public with sharing class AccountQueueableExample implements Queueable{
     //class variable
     public list<account> listAcc;
     public AccountQueueableExample(List<account> accounts) {
