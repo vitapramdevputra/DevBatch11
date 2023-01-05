@@ -1,16 +1,36 @@
 public class SalesforceProjectTriggerHandler {
     public static void createDefaultTicket(List<salesforce_project__c> spTriggerNew) {
-        List<Salesforce_Ticket__c>  listST = new List<Salesforce_Ticket__c>();
-
-        for (salesforce_project__c eachSP : spTriggerNew) {
-            Salesforce_Ticket__c newST = new Salesforce_Ticket__c();
-            newST.Subject__c = 'Default ticket';
-            newST.Salesforce_Project__c = eachSP.Id;
-            listST.add(newST);
+        try{
+            List<Salesforce_Ticket__c>  listST = new List<Salesforce_Ticket__c>();
+            //get the default ORG value using 'getOrgDefaults' method of custom settings.s
+            DefaultTicketInfo__c defaultValues = DefaultTicketInfo__c.getOrgDefaults();
+            
+            for (salesforce_project__c eachSP : spTriggerNew) {
+                Salesforce_Ticket__c newST = new Salesforce_Ticket__c();
+                //set the Ticket subject = custom setting value's subject.
+                newST.Subject__c = defaultValues.Subject__c;//make it a little dynamic, so admin or dev can change it.
+                newST.Salesforce_Project__c = eachSP.Id;
+                newST.Description__c = defaultValues.description__c;
+                newST.Priority__c = 'Medium';
+                listST.add(newST);
+            }
+            if (!listST.isEmpty()) {
+                List<database.SaveResult> results = database.insert(listST, false);
+                for(database.SaveResult r: results){
+                if(r.isSuccess()){
+                    system.debug('inserted successfully, record id is ' + r.getId());
+                } else {
+                    
+                    system.debug('errored out. errors are ' + r.getErrors());
+                }
+            }
+            }
+        } catch(exception ex){
+            for(Salesforce_Project__c sp: spTriggerNew){
+                sp.addError('Error in creating Default ticket. Please contact your dear administrator');
+            }
         }
-        if (!listST.isEmpty()) {
-            insert listST;
-        }
+        
     }
 
     public static void completeSPvalidation(List<salesforce_project__c> spTriggerNew, List<salesforce_project__c> spTriggerOld, 
